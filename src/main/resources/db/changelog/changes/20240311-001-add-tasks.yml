@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: addTasksUser
+      author: MD Kamrul Hasan
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO tasks (title, description, status, priority, due_date, assignee_id, created_by, created_at)
+              VALUES ('First Sample Task 1', 'This is a sample task', 'TO_DO', 'HIGH', now() + interval '10 hour', 1, 'admin@abc.com', now());
+        - sql:
+            sql: |
+              INSERT INTO tasks (title, description, status, priority, due_date, assignee_id, created_by, created_at)
+              VALUES ('Second Sample Task 2', 'This is a sample task', 'TO_DO', 'HIGH', now() + interval '10 hour', 1, 'admin@abc.com', now());

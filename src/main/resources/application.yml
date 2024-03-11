@@ -1,0 +1,59 @@
+app:
+    default:
+        timezone: UTC
+        charset: UTF-8
+    jwt:
+        secret: ${JWT_SECRET:fyoPo323tcXisVcOi3D1SMHFhUHBWIz56XFPD5lHEAqDVAy3QgKeUCGw0xijmjoKfmB3JqWbdhi9F7MefOOSuGZPJg35q9Q6j3JyqSo6o7J2u5xoxTp21MGiWqlftV0plarOk8PAVigIMlZvxvI8iD7SkV02xetl9WXEsFVPSMQK2QMiCkceHX260Q6yc1HqSVtFRqiyjVL2lwL7IVridAzGMlBBtQOw==}
+        expiration-ms: ${JWT_EXPIRATION:86400000}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: task-management-system
+  datasource:
+    url: jdbc:postgresql://localhost:5432/task_management_system_db
+    username: user
+    password: test@123
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximumPoolSize: 3
+      leakDetectionThreshold: 20000
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 20
+          time_zone: UTC
+        show_sql: false
+        format_sql: false
+        use_sql_comments: false
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yml
+    drop-first: false # This will drop all the tables and recreate them
+  mail:
+    host: localhost
+    port: 1025
+    username: smtpuser
+    password: strongpassword
+    properties:
+      mail:
+        smtp:
+          auth: false
+          from: admin@taskmanagement.com
+          starttls:
+            enable: false
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api/api-docs
+  swagger-ui:
+    enabled: true
+    path: /api/api-docs/ui

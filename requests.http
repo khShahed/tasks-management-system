@@ -1,0 +1,37 @@
+###
+
+# curl --request POST
+#  --url http://localhost:8080/api/auth/login
+#  --header 'Content-Type: application/json'
+#  --header 'User-Agent: insomnia/8.6.1'
+#  --data '{
+#	"username": "admin@abc.com",
+#	"password": "pass123"
+#}'
+POST http://localhost:8080/api/auth/login
+User-Agent: insomnia/8.6.1
+Content-Type: application/json
+
+{
+  "username": "admin@abc.com",
+  "password": "pass123"
+}
+
+### Create a new task
+
+POST http://localhost:8080/api/tasks
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhYmMuY29tIiwiaWF0IjoxNzEwMDc5MDUxLCJleHAiOjE3MTAxNjU0NTF9.T2Z3d0UTLImX30PpM0i8vqXDKseiZ_zZ7q3a5VKVcJ4vvwn0NQb8bQRMEYmO38afjeRlDl3DEvSOH6JCDxGrSw
+User-Agent: insomnia/8.6.1
+Content-Type: application/json
+
+{
+  "title": "First Task 2",
+  "description": "Another description",
+  "status": "TO_DO",
+  "dueDate": "2024-03-11T20:00:00.000+06:00",
+  "assigneeId": 1
+}
+
+### Get all tasks
+GET http://localhost:8080/api/tasks
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhYmMuY29tIiwiaWF0IjoxNzEwMDc5MDUxLCJleHAiOjE3MTAxNjU0NTF9.T2Z3d0UTLImX30PpM0i8vqXDKseiZ_zZ7q3a5VKVcJ4vvwn0NQb8bQRMEYmO38afjeRlDl3DEvSOH6JCDxGrSw

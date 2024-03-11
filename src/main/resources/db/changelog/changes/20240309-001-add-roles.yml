@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: addRoleAdminRole
+      author: MD Kamrul Hasan
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: ROLE_ADMIN
+
+  - changeSet:
+      id: addRoleUserRole
+      author: MD Kamrul Hasan
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: ROLE_USER

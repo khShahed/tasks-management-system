@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: addAdminUser
+      author: MD Kamrul Hasan
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO users (username, email, password)
+              VALUES ('admin@abc.com', 'admin@abc.com', '$2a$10$mwh1WmoYGSHfFkfr1anEuu2P60XKywySU5ygacgwS/ltx.4LwOPDW');
+        - sql:
+            sql: |
+              INSERT INTO user_roles (user_id, role_id)
+              VALUES ((SELECT id FROM users WHERE email = 'admin@abc.com'), (SELECT id FROM roles WHERE name = 'ROLE_ADMIN'));

@@ -1,0 +1,226 @@
+databaseChangeLog:
+  - changeSet:
+      id: createTasksTable
+      author: MD Kamrul Hasan
+      changes:
+        - createTable:
+            tableName: tasks
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: priority
+                  type: VARCHAR(20)
+              - column:
+                  name: due_date
+                  type: TIMESTAMP
+              - column:
+                  name: assignee_id
+                  type: INT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_by
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_by
+                  type: VARCHAR(50)
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+            foreignKeyConstraints:
+              - foreignKeyConstraint:
+                  baseColumnNames: assignee_id
+                  baseTableName: tasks
+                  referencedColumnNames: id
+                  referencedTableName: users
+                  onDelete: CASCADE
+  - changeSet:
+      id: createUsersTable
+      author: MD Kamrul Hasan
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: username
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: createHistoryTable
+      author: MD Kamrul Hasan
+      changes:
+        - createTable:
+            tableName: history
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: task_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: action
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: timestamp
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+            foreignKeyConstraints:
+              - foreignKeyConstraint:
+                  baseColumnNames: task_id
+                  baseTableName: tasks
+                  referencedColumnNames: id
+                  referencedTableName: tasks
+                  onDelete: CASCADE
+              - foreignKeyConstraint:
+                  baseColumnNames: user_id
+                  baseTableName: users
+                  referencedColumnNames: id
+                  referencedTableName: users
+  - changeSet:
+      id: createNotificationsTable
+      author: MD Kamrul Hasan
+      changes:
+        - createTable:
+            tableName: notifications
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: task_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: subject
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: message
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sent_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+            foreignKeyConstraints:
+              - foreignKeyConstraint:
+                  baseColumnNames: task_id
+                  baseTableName: tasks
+                  referencedColumnNames: id
+                  referencedTableName: tasks
+                  onDelete: CASCADE
+  - changeSet:
+      id: createRolesTable
+      author: MD Kamrul Hasan
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+  - changeSet:
+      id: createUsersRolesTable
+      author: MD Kamrul Hasan
+      changes:
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: INT
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: role_id
+                  type: INT
+                  constraints:
+                    primaryKey: true
+            foreignKeyConstraints:
+              - foreignKeyConstraint:
+                  baseColumnNames: user_id
+                  baseTableName: users
+                  referencedColumnNames: id
+                  referencedTableName: users
+                  onDelete: CASCADE
+              - foreignKeyConstraint:
+                  baseColumnNames: role_id
+                  baseTableName: roles
+                  referencedColumnNames: id
+                  referencedTableName: roles
+                  onDelete: CASCADE
